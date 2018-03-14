@@ -23,11 +23,6 @@ class MainActivity : AppCompatActivity() {
         callToAddView(10, layout)
     }
 
-    private fun callToAddView(countAdd: Int, rootLinearLayout: LinearLayout) {
-        if (countAdd != 0)
-            calcSizeRootView(rootLinearLayout, countAdd)
-    }
-
     private fun calcSizeRootView(rootLayout: LinearLayout, countAdd: Int) {
         rootLayout.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
@@ -45,12 +40,17 @@ class MainActivity : AppCompatActivity() {
 
         val layoutForNextStep = drawChildView(weightSecondLayout, rootLayout)
         callToAddView(countAdd.dec(), layoutForNextStep)
+    }
 
+    private fun callToAddView(countAdd: Int, rootLinearLayout: LinearLayout) {
+        if (countAdd != 0)
+            calcSizeRootView(rootLinearLayout, countAdd)
     }
 
     private fun drawChildView(weightRatioLayout: Float, rootLayout: LinearLayout): LinearLayout {
         val childLinearLayout = LinearLayout(this)
-        val childLayoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, weightRatioLayout)
+        val childLayoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT, weightRatioLayout)
         rootLayout.addView(childLinearLayout, childLayoutParams)
         return childLinearLayout
     }
